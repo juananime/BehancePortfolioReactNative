@@ -65,16 +65,16 @@ export default class ProjectsView extends Component {
         }).then((response) =>
         {
             return response.json()
-        })
-            .then((responseData) => {
+        }).then((responseData) => {
 
-                console.log
+
                 var data = responseData.projects;
                 var images=[];
 
                 var projectsLenght = data.length;
                 for (var i = 0; i < projectsLenght; i++) {
                     images.push(data[i].covers.original);
+                    console.log('fff:: '+data[i].covers.original);
                 }
 
 
@@ -122,7 +122,7 @@ export default class ProjectsView extends Component {
     }
 
     renderItem(item) {
-        return <Project movie={item} />
+        return <Project project={item} />
     }
 }
 

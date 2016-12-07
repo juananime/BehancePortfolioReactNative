@@ -2,6 +2,6 @@ import React, { Component } from 'react';
 import {
     AppRegistry,
 } from 'react-native';
-import ProjectsView from './ProjectsView';
+import Application from './App';
 
-AppRegistry.registerComponent('otomogroovePortofolio', () => ProjectsView);
+AppRegistry.registerComponent('otomogroovePortofolio', () => Application);

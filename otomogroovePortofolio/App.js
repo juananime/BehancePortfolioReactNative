@@ -1,11 +1,7 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
+ * Created by juanjimenez on 07/12/2016.
  */
-'use strict';
-
-import React, { Component } from 'react';
-var ResponsiveImage = require('react-native-responsive-image');
+import React,{Component} from 'react';
 import {
     AppRegistry,
     Image,
@@ -14,155 +10,140 @@ import {
     Text,
     View,
 } from 'react-native';
+import Drawer from 'react-native-drawer';
 
-import GridView from 'react-native-grid-view'
+import ProjectsView from './ProjectsView';
+import SideMenu from './SideMenu';
+import About from './About';
 
-var API_KEY = 'OXf3O560Fx9oHdUWjy48t7hhId8NgRZN';
-var API_URL = 'https://api.behance.net/v2/users/juananime/projects';
-var PAGE_SIZE = 25;
-var PARAMS = '?client_id=' + API_KEY;
-var REQUEST_URL = API_URL + PARAMS;
-var MOVIES_PER_ROW = 3;
+var aboutSection = <About />
 
-class Project extends Component {
-    render() {
-        return (
-            <View style={styles.movie} >
-
-
-                <Image
-                    source={{uri: this.props.project}}
-                    style={styles.thumbnail}
-                />
-
-            </View>
-        );
+const drawerStyles = {
+    drawer: {
+        shadowColor: "#000000",
+        shadowOpacity: 0.8,
+        shadowRadius: 3,
     }
 }
+let counter = 0;
+export default class Application extends Component {
 
-export default class OtomogrooveProjects extends Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
         this.state = {
-            dataSource: null,
-            loaded: false,
-        }
+            drawerType: 'overlay',
+            openDrawerOffset:100,
+            closedDrawerOffset:0,
+            panOpenMask: .9,
+            panCloseMask: .1,
+            relativeDrag: false,
+            panThreshold: .25,
+            tweenHandlerOn: true,
+            tweenDuration: 350,
+            tweenEasing: 'linear',
+            disabled: false,
+            tweenHandlerPreset: null,
+            acceptDoubleTap: false,
+            acceptTap: false,
+            acceptPan: true,
+            tapToClose: false,
+            negotiatePan: true,
+            rightSide: false,
+        };
     }
-
     componentDidMount() {
-        console.log('XSXXSXXS');
-        this.fetchData();
+        console.log('Application  mounted');
+
+
     }
 
-    fetchData() {
-        fetch(REQUEST_URL, {
-            method: 'get',
-            dataType: 'json',
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json'
-            }
-        }).then((response) =>
-        {
-            return response.json()
+    onSectionChanged(section){
+        console.log('onSectionChanged  ::: '+section);
+
+        if(section == "2"){
+
+            this.drawer.mainViewContainer = aboutSection;
+        }
+
+    }
+
+    noopChange(){
+        this.setState({
+            changeVal: Math.random()
         })
-            .then((responseData) => {
+    }
 
-                console.log
-                var data = responseData.projects;
-                var images=[];
+    openDrawer(){
+        this.drawer.open()
+    }
 
-                var projectsLenght = data.length;
-                for (var i = 0; i < projectsLenght; i++) {
-                    images.push(data[i].covers.original);
-                }
-
-
-                this.setState({
-                        dataSource:images,
-                        loaded:true,
-                    }
-                )
-                return responseData;
-            }).catch(function(err) {
-            console.error(err);
-        })
-            .done();
-
-
+    setStateFrag(frag) {
+        this.setState(frag);
     }
 
     render() {
-        if (!this.state.loaded) {
-            return this.renderLoadingView();
-        }
 
+        var sideMenu =
+            <SideMenu
+                onSectionChanged = {(section) => {
+                this.onSectionChanged(section);
+                }}
+            closeDrawer={() => {
+                this.drawer.close();
+                }}
+            />
         return (
-            <View style={styles.mainViewContainer}>
-                <ResponsiveImage source={require('./img/logo3.png')} initWidth="320" initHeight="200"/>
-                <GridView
-                    items={this.state.dataSource}
-                    itemsPerRow={MOVIES_PER_ROW}
-                    renderItem={this.renderItem}
-                    style={styles.listView}
+            <Drawer
+                ref={c => this.drawer = c}
+                type={this.state.drawerType}
+                animation={this.state.animation}
+                openDrawerOffset={this.state.openDrawerOffset}
+                closedDrawerOffset={this.state.closedDrawerOffset}
+                panOpenMask={this.state.panOpenMask}
+                panCloseMask={this.state.panCloseMask}
+                relativeDrag={this.state.relativeDrag}
+                panThreshold={this.state.panThreshold}
+                content={sideMenu}
+                styles={drawerStyles}
+                disabled={this.state.disabled}
+                tweenHandler={(ratio) => ({
+                     main: { opacity:(2-ratio)/2 }
+                })}
+                tweenDuration={this.state.tweenDuration}
+                tweenEasing={this.state.tweenEasing}
+                acceptDoubleTap={this.state.acceptDoubleTap}
+                acceptTap={this.state.acceptTap}
+                acceptPan={this.state.acceptPan}
+                tapToClose={this.state.tapToClose}
+                negotiatePan={this.state.negotiatePan}
+                changeVal={this.state.changeVal}
+                side={this.state.rightSide ? 'right' : 'left'}
+            >
+                <ProjectsView
+                    drawerType={this.state.drawerType}
+                    setParentState={this.setStateFrag.bind(this)}
+                    openDrawer={this.openDrawer.bind(this)}
+                    openDrawerOffset={this.state.openDrawerOffset}
+                    closedDrawerOffset={this.state.closedDrawerOffset}
+                    panOpenMask={this.state.panOpenMask}
+                    panCloseMask={this.state.panCloseMask}
+                    relativeDrag= {this.state.relativeDrag}
+                    panStartCompensation= {this.state.panStartCompensation}
+                    tweenHandlerOn={this.state.tweenHandlerOn}
+                    disabled={this.state.disabled}
+                    panThreshold={this.state.panThreshold}
+                    tweenEasing={this.state.tweenEasing}
+                    tweenHandlerPreset={this.state.tweenHandlerPreset}
+                    animation={this.state.animation}
+                    noopChange={this.noopChange.bind(this)}
+                    acceptTap={this.state.acceptTap}
+                    acceptDoubleTap={this.state.acceptDoubleTap}
+                    acceptPan={this.state.acceptPan}
+                    tapToClose={this.state.tapToClose}
+                    negotiatePan={this.state.negotiatePan}
+                    rightSide={this.state.rightSide}
                 />
-            </View>
+            </Drawer>
         );
-    }
-
-    renderLoadingView() {
-        return (
-            <View>
-                <ResponsiveImage source={require('./img/logo3.png')} initWidth="320" initHeight="150"/>
-                <Text>
-                    Loading Projects...
-                </Text>
-            </View>
-        );
-    }
-
-    renderItem(item) {
-        return <Project movie={item} />
     }
 }
-
-var styles = StyleSheet.create({
-    mainViewContainer:{
-        backgroundColor:'#FFFFFF',
-
-        flexDirection:'column',
-        flex: 1,
-        justifyContent: 'center',
-
-    },
-    project: {
-        height: 150,
-        flex: 1,
-        alignItems: 'center',
-        flexDirection: 'column',
-    },
-    imageLogo:{
-        width:350,
-        justifyContent: 'center',
-        alignItems: 'center',
-
-    },
-    title: {
-        fontSize: 10,
-        marginBottom: 8,
-        width: 90,
-        textAlign: 'center',
-    },
-
-    thumbnail: {
-        width: 150,
-        height: 150,
-
-    },
-    listView: {
-        paddingTop: 20,
-        backgroundColor: '#F5FCFF',
-    },
-});
-
-//AppRegistry.registerComponent('otomogroovePortofolio', () => AwesomeProject);
