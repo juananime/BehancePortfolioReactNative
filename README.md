@@ -10,7 +10,7 @@ Tested for:
 Features:
   - Fetch calls to Behance APIs
   - Navigation between scenes.
-  - Drawer menu platforma agnostic.
+  - Drawer menu platform agnostic.
 
 
 
@@ -18,7 +18,7 @@ Features:
 
 Open source projects to work properly:
 
-* [eact Native] -v.38+
+* [React Native] -v.38+
 * [node.js] - evented I/O for the backend
 
 
