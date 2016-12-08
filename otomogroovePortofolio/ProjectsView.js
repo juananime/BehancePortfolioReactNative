@@ -4,9 +4,10 @@
  */
 'use strict';
 
-import React, { Component } from 'react';
+import React, {PropTypes, Component } from 'react';
 var ResponsiveImage = require('react-native-responsive-image');
 import {
+    TouchableHighlight,
     AppRegistry,
     Image,
     ListView,
@@ -24,33 +25,38 @@ var PARAMS = '?client_id=' + API_KEY;
 var REQUEST_URL = API_URL + PARAMS;
 var MOVIES_PER_ROW = 3;
 
-class Project extends Component {
-    render() {
-        return (
-            <View style={styles.movie} >
 
 
-                <Image
-                    source={{uri: this.props.project}}
-                    style={styles.thumbnail}
-                />
+class ProjectItem extends Component {
 
-            </View>
-        );
+    static propTypes = {
+        projectID :PropTypes.string,
+        projectImageUri:PropTypes.string
+
     }
+
 }
 
 export default class ProjectsView extends Component {
+    static propTypes = {
+
+
+
+
+    }
     constructor(props) {
         super(props);
+        //this.onPorjectDetailSelected = this.onPorjectDetailSelected.bind(this)
+        this.renderItem = this.renderItem.bind(this);
         this.state = {
             dataSource: null,
             loaded: false,
         }
     }
 
+
     componentDidMount() {
-        console.log('XSXXSXXS');
+
         this.fetchData();
     }
 
@@ -69,28 +75,41 @@ export default class ProjectsView extends Component {
 
 
                 var data = responseData.projects;
-                var images=[];
+                var items=[];
 
                 var projectsLenght = data.length;
                 for (var i = 0; i < projectsLenght; i++) {
-                    images.push(data[i].covers.original);
-                    console.log('fff:: '+data[i].covers.original);
+
+                    var projectItem = <ProjectItem
+                        projectID={data[i].id.toString()}
+                         projectImageUri={data[i].covers.original}
+                    />;
+
+
+                    items.push(projectItem);
+
                 }
 
 
                 this.setState({
-                        dataSource:images,
+                        dataSource:items,
                         loaded:true,
                     }
                 )
                 return responseData;
             }).catch(function(err) {
             console.error(err);
-        })
-            .done();
+        }).done();
 
 
     }
+
+    onPorjectDetailSelected(item){
+
+        console.log(item);
+        this.props.onForward({name:'ProjectDetail',id:item});
+    }
+
 
     render() {
         if (!this.state.loaded) {
@@ -113,7 +132,7 @@ export default class ProjectsView extends Component {
     renderLoadingView() {
         return (
             <View>
-                <ResponsiveImage source={require('./img/logo3.png')} initWidth="320" initHeight="150"/>
+
                 <Text>
                     Loading Projects...
                 </Text>
@@ -122,7 +141,21 @@ export default class ProjectsView extends Component {
     }
 
     renderItem(item) {
-        return <Project project={item} />
+        return (
+            <TouchableHighlight onPress={ ()=> this.onPorjectDetailSelected(item.props.projectID)} key={item.props.projectID}>
+                <View style={styles.thumbnail} >
+
+
+                    <Image
+                        source={{uri: item.props.projectImageUri}}
+                        style={styles.thumbnail}
+                    />
+
+                </View>
+
+
+            </TouchableHighlight>
+        )
     }
 }
 

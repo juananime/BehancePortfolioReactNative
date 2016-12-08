@@ -15,9 +15,7 @@ import {
 export default class SideMenu extends Component {
     constructor(props) {
         super(props);
-        this.state = {
 
-        }
     }
     onPressTitle(section){
         console.log('>>>'+section);

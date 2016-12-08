@@ -2,6 +2,6 @@ import React, { Component } from 'react';
 import {
     AppRegistry,
 } from 'react-native';
-import OtomogrooveProjects from './App.js';
+import Application from './App';
 
-AppRegistry.registerComponent('otomogroovePortofolio', () => OtomogrooveProjects);
+AppRegistry.registerComponent('otomogroovePortofolio', () => Application);

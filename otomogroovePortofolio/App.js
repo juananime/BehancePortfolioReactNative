@@ -1,8 +1,9 @@
 /**
  * Created by juanjimenez on 07/12/2016.
  */
-import React,{Component} from 'react';
+import React, {Component} from 'react';
 import {
+    Navigator,
     AppRegistry,
     Image,
     ListView,
@@ -13,10 +14,10 @@ import {
 import Drawer from 'react-native-drawer';
 
 import ProjectsView from './ProjectsView';
+import  ProjectDetail from './ProjectDetail';
 import SideMenu from './SideMenu';
-import About from './About';
 
-var aboutSection = <About />
+
 
 const drawerStyles = {
     drawer: {
@@ -32,8 +33,8 @@ export default class Application extends Component {
         super(props, context);
         this.state = {
             drawerType: 'overlay',
-            openDrawerOffset:100,
-            closedDrawerOffset:0,
+            openDrawerOffset: 0,
+            closedDrawerOffset: 0,
             panOpenMask: .9,
             panCloseMask: .1,
             relativeDrag: false,
@@ -51,29 +52,22 @@ export default class Application extends Component {
             rightSide: false,
         };
     }
+
     componentDidMount() {
         console.log('Application  mounted');
-
-
     }
 
-    onSectionChanged(section){
-        console.log('onSectionChanged  ::: '+section);
-
-        if(section == "2"){
-
-            this.drawer.mainViewContainer = aboutSection;
-        }
-
+    onSectionChanged(section) {
+        console.log('onSectionChanged  ::: ' + section);
     }
 
-    noopChange(){
+    noopChange() {
         this.setState({
             changeVal: Math.random()
         })
     }
 
-    openDrawer(){
+    openDrawer() {
         this.drawer.open()
     }
 
@@ -81,14 +75,37 @@ export default class Application extends Component {
         this.setState(frag);
     }
 
+    renderScene(route, navigator) {
+        if (route.name == 'Projects') {
+            return <ProjectsView
+                // Function to call when a new scene should be displayed
+                onForward={(data) => {
+                   console.log('rere:: '+data.id);
+              navigator.push({
+                name: 'ProjectDetail',
+                data: data.id,
+              });
+            }}
+
+
+            />
+        }
+        if (route.name == 'ProjectDetail') {
+            return <ProjectDetail
+                data={route.data}
+            />
+        }
+    }
+
+
     render() {
 
         var sideMenu =
             <SideMenu
-                onSectionChanged = {(section) => {
+                onSectionChanged={(section) => {
                 this.onSectionChanged(section);
                 }}
-            closeDrawer={() => {
+                closeDrawer={() => {
                 this.drawer.close();
                 }}
             />
@@ -119,7 +136,8 @@ export default class Application extends Component {
                 changeVal={this.state.changeVal}
                 side={this.state.rightSide ? 'right' : 'left'}
             >
-                <ProjectsView
+                <Navigator
+
                     drawerType={this.state.drawerType}
                     setParentState={this.setStateFrag.bind(this)}
                     openDrawer={this.openDrawer.bind(this)}
@@ -127,8 +145,8 @@ export default class Application extends Component {
                     closedDrawerOffset={this.state.closedDrawerOffset}
                     panOpenMask={this.state.panOpenMask}
                     panCloseMask={this.state.panCloseMask}
-                    relativeDrag= {this.state.relativeDrag}
-                    panStartCompensation= {this.state.panStartCompensation}
+                    relativeDrag={this.state.relativeDrag}
+                    panStartCompensation={this.state.panStartCompensation}
                     tweenHandlerOn={this.state.tweenHandlerOn}
                     disabled={this.state.disabled}
                     panThreshold={this.state.panThreshold}
@@ -142,6 +160,9 @@ export default class Application extends Component {
                     tapToClose={this.state.tapToClose}
                     negotiatePan={this.state.negotiatePan}
                     rightSide={this.state.rightSide}
+
+                    initialRoute={{ name: 'Projects' }}
+                    renderScene={ this.renderScene }
                 />
             </Drawer>
         );
