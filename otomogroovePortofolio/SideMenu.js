@@ -12,6 +12,8 @@ import {
     View,
 } from 'react-native';
 
+var ResponsiveImage = require('react-native-responsive-image');
+
 export default class SideMenu extends Component {
     constructor(props) {
         super(props);
@@ -33,23 +35,49 @@ export default class SideMenu extends Component {
     }
     render() {
         return (
-            <View>
-                <TouchableHighlight onPress={() => this.onPressTitle('1')} style={styles.menuItem} >
-                <Text style={styles.menuItemText}>
-                    PROJECTS >
-                </Text>
-                </TouchableHighlight>
-                <TouchableHighlight onPress={() => this.onPressTitle('2')} style={styles.menuItem} >
-                    <Text style={styles.menuItemText}>
-                        ABOUT >
-                    </Text>
-                </TouchableHighlight>
+            <View style={styles.mainView}>
+                <View style={{flex: 1, backgroundColor: 'white',justifyContent: 'center',
+                alignItems: 'center',}} >
+                    <Image style={styles.image} source={require('./img/logo3.png')}/>
+                </View>
+                <View style={{flex: 1, backgroundColor: 'skyblue'}} >
+
+
+                </View>
+                <View style={{flex: 3, backgroundColor: 'steelblue'}} >
+                    <TouchableHighlight onPress={() => this.onPressTitle('1')} style={styles.menuItem} >
+                        <Text style={styles.menuItemText}>
+                            PROJECTS >
+                        </Text>
+                    </TouchableHighlight>
+                    <TouchableHighlight onPress={() => this.onPressTitle('2')} style={styles.menuItem} >
+                        <Text style={styles.menuItemText}>
+                            ABOUT >
+                        </Text>
+                    </TouchableHighlight>
+                </View>
+                <View style={{flex:0.2}}>
+
+
+                </View>
             </View>
         );
 
     }
 }
 var styles = StyleSheet.create({
+    image:{
+
+        flex:1,
+        resizeMode: 'contain',
+        margin:10,
+    },
+    mainView: {
+        flex: 1,
+
+        backgroundColor: '#313836'
+
+    },
     menuItem: {
 
 

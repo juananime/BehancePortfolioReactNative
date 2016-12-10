@@ -3,6 +3,7 @@
  */
 import React, {Component} from 'react';
 import {
+    TouchableHighlight,
     Navigator,
     AppRegistry,
     Image,
@@ -17,7 +18,7 @@ import ProjectsView from './ProjectsView';
 import  ProjectDetail from './ProjectDetail';
 import SideMenu from './SideMenu';
 
-
+const backSymbol = '<';
 
 const drawerStyles = {
     drawer: {
@@ -81,9 +82,10 @@ export default class Application extends Component {
                 // Function to call when a new scene should be displayed
                 onForward={(data) => {
                    console.log('rere:: '+data.id);
-              navigator.push({
-                name: 'ProjectDetail',
-                data: data.id,
+                    navigator.push({
+                     name: 'ProjectDetail',
+                     data: data.id,
+
               });
             }}
 
@@ -138,6 +140,37 @@ export default class Application extends Component {
             >
                 <Navigator
 
+                    navigationBar={
+                     <Navigator.NavigationBar
+                         routeMapper={
+                             {
+                                LeftButton: (route, navigator, index, navState) =>
+                                {
+                                    if(index > 0){
+                                    return (
+                                         <TouchableHighlight onPress={() => navigator.pop()}>
+                                            <Text style={styles.navBarTextBack}>{backSymbol}</Text>
+                                          </TouchableHighlight>
+                                    )
+                                    }else{
+                                        return;
+                                    }
+                                },
+                                RightButton: (route, navigator, index, navState) =>
+                                 { return; },
+                                Title: (route, navigator, index, navState) =>
+                                 {
+                                    return (
+                                        <Text style={styles.navBarText}>{route.title}</Text>);
+                                 },
+
+                             }
+                         }
+                         style={styles.navBar}
+
+                        />
+                    }
+
                     drawerType={this.state.drawerType}
                     setParentState={this.setStateFrag.bind(this)}
                     openDrawer={this.openDrawer.bind(this)}
@@ -161,10 +194,27 @@ export default class Application extends Component {
                     negotiatePan={this.state.negotiatePan}
                     rightSide={this.state.rightSide}
 
-                    initialRoute={{ name: 'Projects' }}
+                    initialRoute={{
+                        name: 'Projects',
+                        title:'Otomogroove works',
+                         }}
                     renderScene={ this.renderScene }
                 />
             </Drawer>
         );
     }
 }
+var styles = StyleSheet.create({
+    navBarText: {
+        color:'white',
+        fontSize:20,
+    },
+    navBar: {
+        backgroundColor: '#000000cc',
+    },
+    navBarTextBack: {
+        color:'white',
+        fontSize:25,
+        marginLeft:20,
+    }
+})

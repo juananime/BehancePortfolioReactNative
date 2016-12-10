@@ -5,8 +5,9 @@
 'use strict';
 
 import React, {PropTypes, Component } from 'react';
-var ResponsiveImage = require('react-native-responsive-image');
+
 import {
+    Dimensions,
     TouchableHighlight,
     AppRegistry,
     Image,
@@ -17,10 +18,11 @@ import {
 } from 'react-native';
 
 import GridView from 'react-native-grid-view'
+import ProjectsModel from  './ProjectsModel'
 
 var API_KEY = 'OXf3O560Fx9oHdUWjy48t7hhId8NgRZN';
 var API_URL = 'https://api.behance.net/v2/users/juananime/projects';
-var PAGE_SIZE = 25;
+
 var PARAMS = '?client_id=' + API_KEY;
 var REQUEST_URL = API_URL + PARAMS;
 var MOVIES_PER_ROW = 3;
@@ -118,7 +120,7 @@ export default class ProjectsView extends Component {
 
         return (
             <View style={styles.mainViewContainer}>
-                <ResponsiveImage source={require('./img/logo3.png')} initWidth="320" initHeight="200"/>
+
                 <GridView
                     items={this.state.dataSource}
                     itemsPerRow={MOVIES_PER_ROW}
@@ -161,6 +163,7 @@ export default class ProjectsView extends Component {
 
 var styles = StyleSheet.create({
     mainViewContainer:{
+
         backgroundColor:'#FFFFFF',
 
         flexDirection:'column',
@@ -188,13 +191,14 @@ var styles = StyleSheet.create({
     },
 
     thumbnail: {
-        width: 150,
-        height: 150,
+        width: Dimensions.get('window').width/3,
+        height: Dimensions.get('window').width/3,
 
     },
     listView: {
+        flex: 1,
         paddingTop: 20,
-        backgroundColor: '#F5FCFF',
+        backgroundColor: 'black',
     },
 });
 
