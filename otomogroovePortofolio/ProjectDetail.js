@@ -80,8 +80,8 @@ export default class ProjectDetail extends Component {
 
         return (
             <View style={styles.mainView}>
-                <View style={{flex: 0.5, backgroundColor: 'powderblue'}} />
-                <View style={{flex: 2, backgroundColor: 'skyblue'}} >
+                <View style={{flex: 0.5, backgroundColor: 'black'}} />
+                <View style={{flex: 2, backgroundColor: 'gray'}} >
 
                     <Image
                         source={{uri:this.state.dataResponse.covers.original }}
@@ -90,7 +90,7 @@ export default class ProjectDetail extends Component {
                     />
 
                 </View>
-                <View style={{flex: 3, backgroundColor: 'steelblue'}} />
+                <View style={{flex: 3, backgroundColor: 'black'}} />
             </View>
         );
 
@@ -99,12 +99,12 @@ export default class ProjectDetail extends Component {
     renderLoadingView(){
         return (
             <View style={styles.mainView}>
-                <View style={{flex: 0.5, backgroundColor: 'powderblue'}} />
-                <View style={{flex: 2, backgroundColor: 'skyblue'}} >
+                <View style={{flex: 0.5, backgroundColor: 'black'}} />
+                <View style={{flex: 2, backgroundColor: 'gray'}} >
 
 
                 </View>
-                <View style={{flex: 3, backgroundColor: 'steelblue'}} />
+                <View style={{flex: 3, backgroundColor: 'black'}} />
             </View>
         );
     }

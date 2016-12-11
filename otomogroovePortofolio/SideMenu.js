@@ -32,11 +32,11 @@ export default class SideMenu extends Component {
                 alignItems: 'center',}} >
                     <Image style={styles.image} source={require('./img/logo3.png')}/>
                 </View>
-                <View style={{flex: 1, backgroundColor: 'skyblue'}} >
+                <View style={{flex: 1, backgroundColor: 'black'}} >
 
 
                 </View>
-                <View style={{flex: 3, backgroundColor: 'steelblue'}} >
+                <View style={{flex: 3, backgroundColor: 'black'}} >
                     <TouchableHighlight onPress={() => this.onPressTitle('1')}  >
                         <View style={styles.menuItem}>
                             <Image source={require('./img/btn-back-schedule.imageset/btn-back-schedule.png')}  style={styles.backArrowImage} />
@@ -54,7 +54,7 @@ export default class SideMenu extends Component {
                         </View>
                     </TouchableHighlight>
                 </View>
-                <View style={{flex:0.2}}>
+                <View style={{flex:0.2, backgroundColor: 'black'}}>
 
 
                 </View>

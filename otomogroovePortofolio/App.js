@@ -142,6 +142,7 @@ export default class Application extends Component {
 
                     navigationBar={
                      <Navigator.NavigationBar
+                        initialRoute={{statusBarHidden: true}}
                          routeMapper={
                              {
                                 LeftButton: (route, navigator, index, navState) =>
@@ -213,10 +214,10 @@ export default class Application extends Component {
 }
 var styles = StyleSheet.create({
     navBarLeft: {
-        marginLeft:30,
+        margin:15,
     },
     navBarRight: {
-        marginRight:30,
+        margin:15,
     },
     navBar: {
         backgroundColor: '#000000cc',
