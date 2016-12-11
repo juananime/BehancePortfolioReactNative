@@ -47,10 +47,10 @@ export default class Application extends Component {
             tweenHandlerPreset: null,
             acceptDoubleTap: false,
             acceptTap: false,
-            acceptPan: true,
+            acceptPan: false,
             tapToClose: false,
             negotiatePan: true,
-            rightSide: false,
+            rightSide: true,
         };
     }
 
@@ -149,7 +149,8 @@ export default class Application extends Component {
                                     if(index > 0){
                                     return (
                                          <TouchableHighlight onPress={() => navigator.pop()}>
-                                            <Text style={styles.navBarTextBack}>{backSymbol}</Text>
+                                         <Image source={require('./img/btn-back-schedule.imageset/btn-back-schedule.png')} style={styles.navBarLeft}/>
+
                                           </TouchableHighlight>
                                     )
                                     }else{
@@ -157,7 +158,13 @@ export default class Application extends Component {
                                     }
                                 },
                                 RightButton: (route, navigator, index, navState) =>
-                                 { return; },
+                                 { return (
+                                     <TouchableHighlight onPress={() => this.drawer.open()}>
+                                         <Image source={require('./img/btn-slider.imageset/btn-slider.png')} style={styles.navBarRight}/>
+
+                                          </TouchableHighlight>
+                                 )
+                                 },
                                 Title: (route, navigator, index, navState) =>
                                  {
                                     return (
@@ -205,12 +212,18 @@ export default class Application extends Component {
     }
 }
 var styles = StyleSheet.create({
-    navBarText: {
-        color:'white',
-        fontSize:20,
+    navBarLeft: {
+        marginLeft:30,
+    },
+    navBarRight: {
+        marginRight:30,
     },
     navBar: {
         backgroundColor: '#000000cc',
+    },
+    navBarText:{
+        color:'#ffffff',
+
     },
     navBarTextBack: {
         color:'white',

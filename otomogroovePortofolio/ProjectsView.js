@@ -197,7 +197,7 @@ var styles = StyleSheet.create({
     },
     listView: {
         flex: 1,
-        paddingTop: 20,
+        paddingTop: 70,
         backgroundColor: 'black',
     },
 });
