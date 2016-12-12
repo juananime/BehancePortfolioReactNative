@@ -28,13 +28,13 @@ export default class ProjectDetail extends Component {
         }
     }
     static propTypes = {
-        data : PropTypes.string,
+        data : PropTypes.object,
 
 
     }
 
     fetchData() {
-        fetch(API_URL+this.props.data.toString()+PARAMS, {
+        fetch(API_URL+this.props.data.id.toString()+PARAMS, {
             method: 'get',
             dataType: 'json',
             headers: {
@@ -45,10 +45,6 @@ export default class ProjectDetail extends Component {
         {
             return response.json()
         }).then((responseData) => {
-
-
-
-
             console.log('xsxsx::'+ responseData.project.covers.original);
             this.setState({
 

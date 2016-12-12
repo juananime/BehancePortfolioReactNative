@@ -75,12 +75,6 @@ export default class ProjectsView extends Component {
                 var projectsLenght = data.length;
                 for (var i = 0; i < projectsLenght; i++) {
 
-                    var projectItem = <ProjectItem
-                        projectID={data[i].id.toString()}
-                         projectImageUri={data[i].covers.original}
-                    />;
-
-
                    // items.push(projectItem);
 
                     ProjectsModel.parseProject(data[i]);
@@ -104,8 +98,8 @@ export default class ProjectsView extends Component {
 
     onPorjectDetailSelected(item){
 
-        console.log(item);
-        this.props.onForward({name:'ProjectDetail',id:item});
+        console.log(item.title);
+        this.props.onForward({name:'ProjectDetail',id:item,title:item.title});
     }
 
 
@@ -140,7 +134,7 @@ export default class ProjectsView extends Component {
 
     renderItem(item) {
         return (
-            <TouchableHighlight onPress={ ()=> this.onPorjectDetailSelected(item.id)} key={item.id}>
+            <TouchableHighlight onPress={ ()=> this.onPorjectDetailSelected(item)} key={item.id}>
                 <View style={styles.thumbnail} >
 
 

@@ -85,6 +85,7 @@ export default class Application extends Component {
                     navigator.push({
                      name: 'ProjectDetail',
                      data: data.id,
+                     title:data.title,
 
               });
             }}
