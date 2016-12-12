@@ -236,8 +236,9 @@ var styles = StyleSheet.create({
         backgroundColor: '#000000cc',
     },
     navBarText:{
+        padding:15,
         color:'#ffffff',
-
+        width:300,
 
 
     },

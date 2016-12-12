@@ -5,7 +5,9 @@
 
 import React,{PropTypes, Component} from 'react';
 import {
+    Dimensions,
     Image,
+    ListView,
     AppRegistry,
     StyleSheet,
     Text,
@@ -13,17 +15,20 @@ import {
 } from 'react-native';
 var API_KEY = 'OXf3O560Fx9oHdUWjy48t7hhId8NgRZN';
 var API_URL = 'https://api.behance.net/v2/projects/';
-
+import GridView from 'react-native-grid-view'
+import ProjectsModel from  './ProjectsModel'
 var PARAMS = '?client_id=' + API_KEY;
 
-
+const ds = new ListView.DataSource({rowHasChanged: (r1, r2) => r1 !== r2});
 export default class ProjectDetail extends Component {
     constructor(props) {
         super(props);
-
+        this.renderItem = this.renderItem.bind(this);
         this.state = {
             loaded:false,
-            dataResponse:null
+            dataResponse:null,
+            images:null,
+
 
         }
     }
@@ -46,11 +51,31 @@ export default class ProjectDetail extends Component {
             return response.json()
         }).then((responseData) => {
             console.log('xsxsx::'+ responseData.project.covers.original);
+
+            var data = responseData.project.modules;
+            //var images=[];
+
+            var projectsLenght = data.length;
+            for (var i = 0; i < projectsLenght; i++) {
+
+                // items.push(projectItem);
+
+                //ProjectsModel.parseProject(data[i]);
+                if(data[i].type == 'image'){
+                    console.log('rrttt:: '+data[i].src);
+                    //images.push(data[i]);
+                    ProjectsModel.parseImage(data[i]);
+                }
+
+
+
+            }
+
+
             this.setState({
-
                     loaded:true,
-                    dataResponse:responseData.project
-
+                    dataResponse:responseData.project,
+                    dataSource:ProjectsModel.getImagesForProjectID(this.props.data.id),
                 }
             )
             return responseData;
@@ -59,6 +84,23 @@ export default class ProjectDetail extends Component {
         }).done();
 
 
+    }
+    renderItem(item) {
+        return (
+
+                <View key={item.id}>
+
+
+                    <Image
+                        source={{uri: item.url}}
+                        style={styles.thumbnail}
+                    />
+
+                </View>
+
+
+
+        )
     }
 
     componentDidMount() {
@@ -72,12 +114,12 @@ export default class ProjectDetail extends Component {
         if (!this.state.loaded) {
             return this.renderLoadingView();
         }
-        console.log('frfrfrf:: '+ this.state.dataResponse.covers.original);
+
 
         return (
             <View style={styles.mainView}>
                 <View style={{flex: 0.7, backgroundColor: 'black'}} />
-                <View style={{flex: 2, backgroundColor: 'gray'}} >
+                <View style={{flex: 2, backgroundColor: 'black'}} >
 
                     <Image
                         source={{uri:this.props.data.coverImage }}
@@ -86,10 +128,20 @@ export default class ProjectDetail extends Component {
                     />
 
                 </View>
-                <View style={{flex: 3, backgroundColor: 'black'}} >
+                <View style={{flex: 0.5, backgroundColor: 'black'}} >
                     <Text style={styles.descriptionText}>
                         {this.state.dataResponse.description}
                     </Text>
+                </View>
+                <View style={{flex: 3, }} >
+                    <GridView
+                        items={this.state.dataSource}
+                        itemsPerRow={2}
+                        renderItem={this.renderItem}
+                        style={styles.listView}
+                    />
+
+
                 </View>
             </View>
         );
@@ -117,7 +169,7 @@ var styles = StyleSheet.create({
     mainView: {
         flex: 1,
 
-        backgroundColor: '#313836'
+        backgroundColor: 'black'
 
     },
     base64: {
@@ -131,6 +183,23 @@ var styles = StyleSheet.create({
         color:'#FFFFFF',
         margin: 10,
         textAlign: 'center',
+
+    },
+    imageList: {
+        width: Dimensions.get('window').width/2,
+        resizeMode: 'contain',
+        flex: 1,
+    },
+    listView: {
+        flex: 1,
+
+
+    },
+    thumbnail: {
+        width: Dimensions.get('window').width/2,
+        height: Dimensions.get('window').width/2,
+        padding:20,
+        backgroundColor: 'black',
 
     },
     menuItemText:{

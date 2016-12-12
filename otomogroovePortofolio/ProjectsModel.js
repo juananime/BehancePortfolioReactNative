@@ -7,6 +7,7 @@ import {
 const Realm = require('realm');
 
 class Project {}
+class ProjectImage{}
 
 Project.schema = {
     name: 'Project',
@@ -18,8 +19,18 @@ Project.schema = {
         id:'int'
     },
 };
+ProjectImage.schema = {
+    name: 'ProjectImage',
+    primaryKey: 'id',
+    properties: {
+        url: 'string',
+        id:'int',
+        projectID:'int'
+    },
+};
 
-const realm = new Realm({schema: [Project]});
+
+const realm = new Realm({schema: [Project,ProjectImage]});
 
 export default class ProjectsModel extends Component {
 
@@ -37,7 +48,7 @@ export default class ProjectsModel extends Component {
     }
 
     static initModel(){
-        console.log("FRFRF");
+
         let projects = realm.objects('Project');
         console.log("XSXS:1: "+projects.length );
         realm.write(()=>{
@@ -46,17 +57,30 @@ export default class ProjectsModel extends Component {
 
         // Query
 
-        console.log("XSXS2:: "+projects.length );
+
     }
 
+    static parseImage(data){
+        realm.write(() => {
+            realm.create('ProjectImage', { id:data.id, url: data.src, projectID:data.project_id },true);
+        });
+
+    }
     static getProjects(){
 
         return realm.objects('Project');
     }
 
+    static getImagesForProjectID(id){
+
+        let images = realm.objects('ProjectImage').filtered('projectID == $0', id);
+        console.log("CDCDC::: "+images.length);
+        return  images;
+    }
+
     static parseProject(data){
 
-        console.log("CDCDC::: "+data.id);
+
        // let realm = new Realm({schema: [Project]});
 
         realm.write(() => {

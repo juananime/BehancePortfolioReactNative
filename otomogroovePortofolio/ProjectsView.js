@@ -183,6 +183,7 @@ var styles = StyleSheet.create({
     thumbnail: {
         width: Dimensions.get('window').width/3,
         height: Dimensions.get('window').width/3,
+        backgroundColor: 'black',
 
     },
     listView: {
