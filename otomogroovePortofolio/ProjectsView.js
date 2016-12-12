@@ -20,6 +20,7 @@ import {
 import GridView from 'react-native-grid-view'
 import ProjectsModel from  './ProjectsModel'
 
+
 var API_KEY = 'OXf3O560Fx9oHdUWjy48t7hhId8NgRZN';
 var API_URL = 'https://api.behance.net/v2/users/juananime/projects';
 
@@ -29,15 +30,6 @@ var MOVIES_PER_ROW = 3;
 
 
 
-class ProjectItem extends Component {
-
-    static propTypes = {
-        projectID :PropTypes.string,
-        projectImageUri:PropTypes.string
-
-    }
-
-}
 
 export default class ProjectsView extends Component {
     static propTypes = {
@@ -48,7 +40,8 @@ export default class ProjectsView extends Component {
     }
     constructor(props) {
         super(props);
-        //this.onPorjectDetailSelected = this.onPorjectDetailSelected.bind(this)
+
+
         this.renderItem = this.renderItem.bind(this);
         this.state = {
             dataSource: null,
@@ -58,7 +51,7 @@ export default class ProjectsView extends Component {
 
 
     componentDidMount() {
-
+        ProjectsModel.initModel();
         this.fetchData();
     }
 
@@ -88,13 +81,16 @@ export default class ProjectsView extends Component {
                     />;
 
 
-                    items.push(projectItem);
+                   // items.push(projectItem);
+
+                    ProjectsModel.parseProject(data[i]);
+
 
                 }
 
 
                 this.setState({
-                        dataSource:items,
+                        dataSource:ProjectsModel.getProjects(),
                         loaded:true,
                     }
                 )
@@ -144,12 +140,12 @@ export default class ProjectsView extends Component {
 
     renderItem(item) {
         return (
-            <TouchableHighlight onPress={ ()=> this.onPorjectDetailSelected(item.props.projectID)} key={item.props.projectID}>
+            <TouchableHighlight onPress={ ()=> this.onPorjectDetailSelected(item.id)} key={item.id}>
                 <View style={styles.thumbnail} >
 
 
                     <Image
-                        source={{uri: item.props.projectImageUri}}
+                        source={{uri: item.coverImage}}
                         style={styles.thumbnail}
                     />
 
