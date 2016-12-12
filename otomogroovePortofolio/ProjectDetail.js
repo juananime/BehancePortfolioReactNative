@@ -80,13 +80,17 @@ export default class ProjectDetail extends Component {
                 <View style={{flex: 2, backgroundColor: 'gray'}} >
 
                     <Image
-                        source={{uri:this.state.dataResponse.covers.original }}
+                        source={{uri:this.props.data.coverImage }}
                         style={styles.base64}
 
                     />
 
                 </View>
-                <View style={{flex: 3, backgroundColor: 'black'}} />
+                <View style={{flex: 3, backgroundColor: 'black'}} >
+                    <Text style={styles.descriptionText}>
+                        {this.state.dataResponse.description}
+                    </Text>
+                </View>
             </View>
         );
 
@@ -100,7 +104,11 @@ export default class ProjectDetail extends Component {
 
 
                 </View>
-                <View style={{flex: 3, backgroundColor: 'black'}} />
+                <View style={{flex: 3, backgroundColor: 'gray'}} >
+                    <Text>
+
+                    </Text>
+                </View>
             </View>
         );
     }
@@ -117,7 +125,14 @@ var styles = StyleSheet.create({
 
         resizeMode: 'contain',
     },
+    descriptionText: {
+        fontSize: 13,
+        fontWeight: 'normal',
+        color:'#FFFFFF',
+        margin: 10,
+        textAlign: 'center',
 
+    },
     menuItemText:{
         fontFamily: 'Verdana',
         fontWeight: '100',
