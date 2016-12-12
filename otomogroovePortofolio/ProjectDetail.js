@@ -76,7 +76,7 @@ export default class ProjectDetail extends Component {
 
         return (
             <View style={styles.mainView}>
-                <View style={{flex: 0.5, backgroundColor: 'black'}} />
+                <View style={{flex: 0.7, backgroundColor: 'black'}} />
                 <View style={{flex: 2, backgroundColor: 'gray'}} >
 
                     <Image

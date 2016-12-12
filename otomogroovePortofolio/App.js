@@ -32,6 +32,7 @@ export default class Application extends Component {
 
     constructor(props, context) {
         super(props, context);
+        this.drawerNavMenuButtonClick = this.drawerNavMenuButtonClick.bind(this);
         this.state = {
             drawerType: 'overlay',
             openDrawerOffset: 0,
@@ -45,10 +46,10 @@ export default class Application extends Component {
             tweenEasing: 'linear',
             disabled: false,
             tweenHandlerPreset: null,
-            acceptDoubleTap: false,
-            acceptTap: false,
-            acceptPan: false,
-            tapToClose: false,
+            acceptDoubleTap: true,
+            acceptTap: true,
+            acceptPan: true,
+            tapToClose: true,
             negotiatePan: true,
             rightSide: true,
         };
@@ -70,6 +71,11 @@ export default class Application extends Component {
 
     openDrawer() {
         this.drawer.open()
+    }
+
+    drawerNavMenuButtonClick(){
+        console.log('edededex');
+        this.openDrawer();
     }
 
     setStateFrag(frag) {
@@ -113,6 +119,7 @@ export default class Application extends Component {
                 }}
             />
         return (
+
             <Drawer
                 ref={c => this.drawer = c}
                 type={this.state.drawerType}
@@ -150,8 +157,9 @@ export default class Application extends Component {
                                 {
                                     if(index > 0){
                                     return (
-                                         <TouchableHighlight onPress={() => navigator.pop()}>
-                                         <Image source={require('./img/btn-back-schedule.imageset/btn-back-schedule.png')} style={styles.navBarLeft}/>
+                                         <TouchableHighlight onPress={() => navigator.pop()}style={styles.navBarLeft} >
+
+                                             <Image source={require('./img/btn-back-schedule.imageset/btn-back-schedule.png')} />
 
                                           </TouchableHighlight>
                                     )
@@ -161,16 +169,17 @@ export default class Application extends Component {
                                 },
                                 RightButton: (route, navigator, index, navState) =>
                                  { return (
-                                     <TouchableHighlight onPress={() => this.drawer.open()}>
-                                         <Image source={require('./img/btn-slider.imageset/btn-slider.png')} style={styles.navBarRight}/>
+                                     <TouchableHighlight onPress={() => this.openDrawer()}style={styles.navBarRight} >
+                                         <Image source={require('./img/btn-slider.imageset/btn-slider.png')} />
 
-                                          </TouchableHighlight>
+                                       </TouchableHighlight>
                                  )
                                  },
                                 Title: (route, navigator, index, navState) =>
                                  {
                                     return (
-                                        <Text style={styles.navBarText}>{route.title}</Text>);
+                                        <Text style={styles.navBarText}>{route.title}</Text>
+                                        );
                                  },
 
                              }
@@ -215,21 +224,19 @@ export default class Application extends Component {
 }
 var styles = StyleSheet.create({
     navBarLeft: {
-        margin:15,
+        padding:15,
     },
     navBarRight: {
-        margin:15,
+        padding:15,
+
     },
     navBar: {
         backgroundColor: '#000000cc',
     },
     navBarText:{
         color:'#ffffff',
+        width:200,
 
     },
-    navBarTextBack: {
-        color:'white',
-        fontSize:25,
-        marginLeft:20,
-    }
+
 })
