@@ -34,23 +34,23 @@ export default class Application extends Component {
         super(props, context);
         this.drawerNavMenuButtonClick = this.drawerNavMenuButtonClick.bind(this);
         this.state = {
-            drawerType: 'overlay',
-            openDrawerOffset: 0,
-            closedDrawerOffset: 0,
-            panOpenMask: .9,
-            panCloseMask: .1,
+            drawerType: 'static',
+            openDrawerOffset:100,
+            closedDrawerOffset:0,
+            panOpenMask: .1,
+            panCloseMask: .9,
             relativeDrag: false,
             panThreshold: .25,
-            tweenHandlerOn: true,
+            tweenHandlerOn: false,
             tweenDuration: 350,
             tweenEasing: 'linear',
             disabled: false,
             tweenHandlerPreset: null,
-            acceptDoubleTap: true,
-            acceptTap: true,
+            acceptDoubleTap: false,
+            acceptTap: false,
             acceptPan: true,
-            tapToClose: true,
-            negotiatePan: true,
+            tapToClose: false,
+            negotiatePan: false,
             rightSide: true,
         };
     }
@@ -134,7 +134,7 @@ export default class Application extends Component {
                 styles={drawerStyles}
                 disabled={this.state.disabled}
                 tweenHandler={(ratio) => ({
-                     main: { opacity:(2-ratio)/2 }
+                     main: { }
                 })}
                 tweenDuration={this.state.tweenDuration}
                 tweenEasing={this.state.tweenEasing}
@@ -169,12 +169,12 @@ export default class Application extends Component {
                                 },
                                 RightButton: (route, navigator, index, navState) =>
                                  { return (
-                                     <TouchableHighlight onPress={() => this.openDrawer()}style={styles.navBarRight} >
-                                         <Image source={require('./img/btn-slider.imageset/btn-slider.png')} />
+                                      <TouchableHighlight onPress={() => this.drawer.open()} style={styles.navBarRight}>
+                                          <Image source={require('./img/btn-slider.imageset/btn-slider.png')} />
 
-                                       </TouchableHighlight>
-                                 )
-                                 },
+                                           </TouchableHighlight>
+                                  )
+                                  },
                                 Title: (route, navigator, index, navState) =>
                                  {
                                     return (
@@ -225,9 +225,11 @@ export default class Application extends Component {
 var styles = StyleSheet.create({
     navBarLeft: {
         padding:15,
+
     },
     navBarRight: {
         padding:15,
+
 
     },
     navBar: {
@@ -235,7 +237,8 @@ var styles = StyleSheet.create({
     },
     navBarText:{
         color:'#ffffff',
-        width:200,
+
+
 
     },
 

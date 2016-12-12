@@ -100,11 +100,11 @@ export default class ProjectDetail extends Component {
         return (
             <View style={styles.mainView}>
                 <View style={{flex: 0.5, backgroundColor: 'black'}} />
-                <View style={{flex: 2, backgroundColor: 'gray'}} >
+                <View style={{flex: 2, backgroundColor: 'black'}} >
 
 
                 </View>
-                <View style={{flex: 3, backgroundColor: 'gray'}} >
+                <View style={{flex: 3, backgroundColor: 'black'}} >
                     <Text>
 
                     </Text>
