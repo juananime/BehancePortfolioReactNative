@@ -37,7 +37,7 @@ export default class SideMenu extends Component {
 
                 </View>
                 <View style={{flex: 3}} >
-                    <TouchableHighlight onPress={() => this.onPressTitle('1')}  >
+                    <TouchableHighlight onPress={() => this.onPressTitle(1)}  >
                         <View style={styles.menuItem}>
                             <Image source={require('./img/icon-photo.imageset/icon-photo.png')}  style={styles.iconImage} />
                             <Text style={styles.menuItemText}>
@@ -48,7 +48,7 @@ export default class SideMenu extends Component {
 
                     </TouchableHighlight>
                     <View style={{height:1, backgroundColor:'white', }} />
-                    <TouchableHighlight onPress={() => this.onPressTitle('2')}  >
+                    <TouchableHighlight onPress={() => this.onPressTitle(2)}  >
                         <View style={styles.menuItem}>
                             <Image source={require('./img/icon-services.imageset/icon-services.png')} style={styles.iconImage}/>
                             <Text style={styles.menuItemText}>

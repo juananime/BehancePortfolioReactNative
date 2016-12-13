@@ -18,7 +18,7 @@ import Drawer from 'react-native-drawer';
 import ProjectsView from './ProjectsView';
 import  ProjectDetail from './ProjectDetail';
 import SideMenu from './SideMenu';
-
+import About from './About';
 
 
 const drawerStyles = {
@@ -28,18 +28,22 @@ const drawerStyles = {
         shadowRadius: 3,
     }
 }
-let counter = 0;
+
+
+
+
 export default class Application extends Component {
 
     constructor(props, context) {
         super(props, context);
         this.drawerNavMenuButtonClick = this.drawerNavMenuButtonClick.bind(this);
+        this.renderNavigator = this.renderNavigator.bind(this);
         this.state = {
             drawerType: 'static',
             openDrawerOffset:100,
             closedDrawerOffset:0,
-            panOpenMask: .1,
-            panCloseMask: .9,
+            panOpenMask: .0,
+            panCloseMask: .0,
             relativeDrag: false,
             panThreshold: .25,
             tweenHandlerOn: false,
@@ -49,11 +53,93 @@ export default class Application extends Component {
             tweenHandlerPreset: null,
             acceptDoubleTap: false,
             acceptTap: false,
-            acceptPan: true,
+            acceptPan: false,
             tapToClose: false,
             negotiatePan: false,
             rightSide: true,
+            navigator:null,
         };
+    }
+
+    renderNavigator(){
+        return(
+            <Navigator
+
+
+
+                navigationBar={
+                     <Navigator.NavigationBar
+                        initialRoute={{statusBarHidden: true}}
+                         routeMapper={
+                             {
+                                LeftButton: (route, navigator, index, navState) =>
+                                {
+                                    if(index > 0){
+                                    return (
+                                         <TouchableHighlight onPress={() => navigator.pop()}style={styles.navBarLeft} >
+
+                                             <Image source={require('./img/btn-back-schedule.imageset/btn-back-schedule.png')} />
+
+                                          </TouchableHighlight>
+                                    )
+                                    }else{
+                                        return;
+                                    }
+                                },
+                                RightButton: (route, navigator, index, navState) =>
+                                 { return (
+                                      <TouchableHighlight onPress={() => this.drawer.open()} style={styles.navBarRight}>
+                                          <Image source={require('./img/btn-slider.imageset/btn-slider.png')} />
+
+                                           </TouchableHighlight>
+                                  )
+                                  },
+                                Title: (route, navigator, index, navState) =>
+                                 {
+                                    return (
+                                        <Text numberOfLines={1} style={styles.navBarText}>{route.title}</Text>
+                                        );
+                                 },
+
+                             }
+                         }
+                         style={styles.navBar}
+
+                        />
+                    }
+
+                drawerType={this.state.drawerType}
+                setParentState={this.setStateFrag.bind(this)}
+                openDrawer={this.openDrawer.bind(this)}
+                openDrawerOffset={this.state.openDrawerOffset}
+                closedDrawerOffset={this.state.closedDrawerOffset}
+                panOpenMask={this.state.panOpenMask}
+                panCloseMask={this.state.panCloseMask}
+                relativeDrag={this.state.relativeDrag}
+                panStartCompensation={this.state.panStartCompensation}
+                tweenHandlerOn={this.state.tweenHandlerOn}
+                disabled={this.state.disabled}
+                panThreshold={this.state.panThreshold}
+                tweenEasing={this.state.tweenEasing}
+                tweenHandlerPreset={this.state.tweenHandlerPreset}
+                animation={this.state.animation}
+                noopChange={this.noopChange.bind(this)}
+                acceptTap={this.state.acceptTap}
+                acceptDoubleTap={this.state.acceptDoubleTap}
+                acceptPan={this.state.acceptPan}
+                tapToClose={this.state.tapToClose}
+                negotiatePan={this.state.negotiatePan}
+                rightSide={this.state.rightSide}
+
+
+
+                initialRoute={{
+                        name: 'Projects',
+                        title:'Otomogroove works',
+                         }}
+                renderScene={ this.renderScene }
+            />
+        )
     }
 
     componentDidMount() {
@@ -62,6 +148,18 @@ export default class Application extends Component {
 
     onSectionChanged(section) {
         console.log('onSectionChanged  ::: ' + section);
+        switch (section){
+            case 1:
+                //this.state.navigator.pop();
+               // console.log(this.state.navigator)
+               // this.state.navigator.replaceAtIndex({name:'ProjectsView'},0);
+                break;
+
+            default:
+                //this.state.navigator.pop();
+               // this.state.navigator.replace({name:'About'});
+                break;
+        }
     }
 
     noopChange() {
@@ -105,10 +203,16 @@ export default class Application extends Component {
                 data={route.data}
             />
         }
+        if(route.name == 'About'){
+            return <About
+                data={route.data}
+            />
+        }
     }
 
 
     render() {
+        this.state.navigator = this.renderNavigator();
 
         var sideMenu =
             <SideMenu
@@ -147,78 +251,7 @@ export default class Application extends Component {
                 changeVal={this.state.changeVal}
                 side={this.state.rightSide ? 'right' : 'left'}
             >
-                <Navigator
-
-                    navigationBar={
-                     <Navigator.NavigationBar
-                        initialRoute={{statusBarHidden: true}}
-                         routeMapper={
-                             {
-                                LeftButton: (route, navigator, index, navState) =>
-                                {
-                                    if(index > 0){
-                                    return (
-                                         <TouchableHighlight onPress={() => navigator.pop()}style={styles.navBarLeft} >
-
-                                             <Image source={require('./img/btn-back-schedule.imageset/btn-back-schedule.png')} />
-
-                                          </TouchableHighlight>
-                                    )
-                                    }else{
-                                        return;
-                                    }
-                                },
-                                RightButton: (route, navigator, index, navState) =>
-                                 { return (
-                                      <TouchableHighlight onPress={() => this.drawer.open()} style={styles.navBarRight}>
-                                          <Image source={require('./img/btn-slider.imageset/btn-slider.png')} />
-
-                                           </TouchableHighlight>
-                                  )
-                                  },
-                                Title: (route, navigator, index, navState) =>
-                                 {
-                                    return (
-                                        <Text numberOfLines={1} style={styles.navBarText}>{route.title}</Text>
-                                        );
-                                 },
-
-                             }
-                         }
-                         style={styles.navBar}
-
-                        />
-                    }
-
-                    drawerType={this.state.drawerType}
-                    setParentState={this.setStateFrag.bind(this)}
-                    openDrawer={this.openDrawer.bind(this)}
-                    openDrawerOffset={this.state.openDrawerOffset}
-                    closedDrawerOffset={this.state.closedDrawerOffset}
-                    panOpenMask={this.state.panOpenMask}
-                    panCloseMask={this.state.panCloseMask}
-                    relativeDrag={this.state.relativeDrag}
-                    panStartCompensation={this.state.panStartCompensation}
-                    tweenHandlerOn={this.state.tweenHandlerOn}
-                    disabled={this.state.disabled}
-                    panThreshold={this.state.panThreshold}
-                    tweenEasing={this.state.tweenEasing}
-                    tweenHandlerPreset={this.state.tweenHandlerPreset}
-                    animation={this.state.animation}
-                    noopChange={this.noopChange.bind(this)}
-                    acceptTap={this.state.acceptTap}
-                    acceptDoubleTap={this.state.acceptDoubleTap}
-                    acceptPan={this.state.acceptPan}
-                    tapToClose={this.state.tapToClose}
-                    negotiatePan={this.state.negotiatePan}
-                    rightSide={this.state.rightSide}
-
-                    initialRoute={{
-                        name: 'Projects',
-                        title:'Otomogroove works',
-                         }}
-                    renderScene={ this.renderScene }
-                />
+                {this.state.navigator}
             </Drawer>
         );
     }
