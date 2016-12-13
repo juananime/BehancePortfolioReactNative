@@ -88,13 +88,13 @@ export default class ProjectDetail extends Component {
     renderItem(item) {
         return (
 
-                <View key={item.id}>
+                <View key={item.id}  style={styles.thumbnail}>
 
 
                     <Image
-
-                        source={{uri: item.url}}
                         style={styles.thumbnail}
+                        source={{uri: item.url}}
+
                     />
 
                 </View>
