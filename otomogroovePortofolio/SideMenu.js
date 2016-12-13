@@ -32,11 +32,11 @@ export default class SideMenu extends Component {
                 alignItems: 'center',}} >
                     <Image style={styles.image} source={require('./img/logo3.png')}/>
                 </View>
-                <View style={{flex: 1, backgroundColor: 'black'}} >
+                <View style={{flex: 1}} >
 
 
                 </View>
-                <View style={{flex: 3, backgroundColor: 'black'}} >
+                <View style={{flex: 3}} >
                     <TouchableHighlight onPress={() => this.onPressTitle('1')}  >
                         <View style={styles.menuItem}>
                             <Image source={require('./img/icon-photo.imageset/icon-photo.png')}  style={styles.iconImage} />
@@ -84,7 +84,7 @@ var styles = StyleSheet.create({
     mainView: {
         flex: 1,
 
-        backgroundColor: '#313836'
+        backgroundColor: '#202423'
 
     },
     menuItem: {
@@ -98,7 +98,8 @@ var styles = StyleSheet.create({
 
         fontSize: 12,
         textAlign: 'center',
-        margin: 10,
+
+
         color: '#CCCCCC',
 
         fontFamily: 'OpenSans-Light'

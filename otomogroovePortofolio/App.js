@@ -3,6 +3,7 @@
  */
 import React, {Component} from 'react';
 import {
+    Dimensions,
     TouchableHighlight,
     Navigator,
     AppRegistry,
@@ -178,7 +179,7 @@ export default class Application extends Component {
                                 Title: (route, navigator, index, navState) =>
                                  {
                                     return (
-                                        <Text  style={styles.navBarText}>{route.title}</Text>
+                                        <Text numberOfLines={1} style={styles.navBarText}>{route.title}</Text>
                                         );
                                  },
 
@@ -233,12 +234,14 @@ var styles = StyleSheet.create({
 
     },
     navBar: {
-        backgroundColor: '#000000cc',
+        backgroundColor: '#202423cc',
+        alignItems:'center',
+        justifyContent:'center'
     },
     navBarText:{
         padding:15,
         color:'#ffffff',
-        width:300,
+        width:Dimensions.get('screen').width/3,
        fontFamily: 'OpenSans-Light'
 
 

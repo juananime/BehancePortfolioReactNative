@@ -184,6 +184,7 @@ var styles = StyleSheet.create({
         width: Dimensions.get('window').width/3,
         height: Dimensions.get('window').width/3,
         backgroundColor: 'black',
+        padding:10,
 
     },
     listView: {
