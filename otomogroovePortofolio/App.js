@@ -19,7 +19,7 @@ import ProjectsView from './ProjectsView';
 import  ProjectDetail from './ProjectDetail';
 import SideMenu from './SideMenu';
 
-const backSymbol = '<';
+
 
 const drawerStyles = {
     drawer: {
@@ -241,7 +241,7 @@ var styles = StyleSheet.create({
     navBarText:{
         padding:15,
         color:'#ffffff',
-        width:Dimensions.get('screen').width/3,
+        width:Dimensions.get('window').width/3,
        fontFamily: 'OpenSans-Light'
 
 
