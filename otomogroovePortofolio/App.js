@@ -241,7 +241,7 @@ var styles = StyleSheet.create({
     navBarText:{
         padding:15,
         color:'#ffffff',
-        width:Dimensions.get('window').width/3,
+        width:Dimensions.get('window').width/1.5,
        fontFamily: 'OpenSans-Light'
 
 
