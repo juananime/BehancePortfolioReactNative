@@ -178,7 +178,7 @@ export default class Application extends Component {
                                 Title: (route, navigator, index, navState) =>
                                  {
                                     return (
-                                        <Text style={styles.navBarText}>{route.title}</Text>
+                                        <Text  style={styles.navBarText}>{route.title}</Text>
                                         );
                                  },
 
@@ -239,6 +239,7 @@ var styles = StyleSheet.create({
         padding:15,
         color:'#ffffff',
         width:300,
+       fontFamily: 'OpenSans-Light'
 
 
     },

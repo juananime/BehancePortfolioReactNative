@@ -92,6 +92,7 @@ export default class ProjectDetail extends Component {
 
 
                     <Image
+
                         source={{uri: item.url}}
                         style={styles.thumbnail}
                     />
@@ -183,6 +184,8 @@ var styles = StyleSheet.create({
         color:'#FFFFFF',
         margin: 10,
         textAlign: 'center',
+        fontFamily: 'OpenSans-Italic'
+
 
     },
     imageList: {
@@ -208,6 +211,7 @@ var styles = StyleSheet.create({
         fontSize: 14,
         textAlign: 'left',
         margin: 10,
-        color: '#FFFFFF'
+        color: '#FFFFFF',
+        fontFamily: 'OpenSans-Light'
     }
 });

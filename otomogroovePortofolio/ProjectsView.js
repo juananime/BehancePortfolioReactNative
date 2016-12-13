@@ -123,7 +123,7 @@ export default class ProjectsView extends Component {
 
     renderLoadingView() {
         return (
-            <View>
+            <View style={styles.mainViewContainer}>
 
                 <Text>
                     Loading Projects...
@@ -154,7 +154,7 @@ export default class ProjectsView extends Component {
 var styles = StyleSheet.create({
     mainViewContainer:{
 
-        backgroundColor:'#FFFFFF',
+        backgroundColor:'black',
 
         flexDirection:'column',
         flex: 1,
