@@ -6,11 +6,12 @@ import React,{Component} from 'react';
 import {
     Image,
     AppRegistry,
-    MapView,
     StyleSheet,
     Text,
     View,
 } from 'react-native';
+
+import MapView from 'react-native-maps';
 
 export default class About extends Component {
     constructor(props) {
@@ -52,8 +53,15 @@ export default class About extends Component {
                     -Puppet master (Ghost in the shell)
                 </Text>
             </View>
-            <View style={{flex: 3, }} >
-
+            <View style={{flex: 3, backgroundColor:'black', padding:5, justifyContent:'center'}} >
+                <MapView style={{flex: 1}}
+                    initialRegion={{
+      latitude: 51.528308,
+      longitude: -0.3817765,
+      latitudeDelta: 0.1,
+      longitudeDelta: 0.1,
+    }}
+                />
 
             </View>
         </View>
@@ -69,6 +77,10 @@ var styles= StyleSheet.create({
 
         backgroundColor: 'black'
 
+    },
+    map:{
+      flex:1,
+        backgroundColor: 'black',
     },
     image:{
 
