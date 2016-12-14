@@ -150,8 +150,8 @@ export default class Application extends Component {
         console.log('onSectionChanged  ::: ' + section);
         switch (section){
             case 1:
-               // this.refs.mainNavigator.pop();
-                //this.state.navigator.pop();
+               this.refs.mainNavigator.pop();
+
                // console.log(this.state.navigator)
                 this.refs.mainNavigator.replaceAtIndex({
                     name: 'Projects',
@@ -160,7 +160,7 @@ export default class Application extends Component {
                 break;
 
             default:
-               // this.refs.mainNavigator.pop();
+                this.refs.mainNavigator.pop();
                 this.refs.mainNavigator.replaceAtIndex({
                     name:'About',
                     title:'About Otomogroove',

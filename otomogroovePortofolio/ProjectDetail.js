@@ -129,8 +129,8 @@ export default class ProjectDetail extends Component {
                     />
 
                 </View>
-                <View style={{flex: 0.5, backgroundColor: 'black'}} >
-                    <Text style={styles.descriptionText}>
+                <View style={{flex: 0.7, backgroundColor: 'black'}} >
+                    <Text style={styles.descriptionText} numberOfLines={3}>
                         {this.state.dataResponse.description}
                     </Text>
                 </View>
