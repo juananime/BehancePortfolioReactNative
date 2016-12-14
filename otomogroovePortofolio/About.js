@@ -53,9 +53,7 @@ export default class About extends Component {
                 </Text>
             </View>
             <View style={{flex: 3, }} >
-                <MapView
-                    showsUserLocation={true}
-                />
+
 
             </View>
         </View>
