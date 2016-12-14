@@ -28,11 +28,9 @@ export default class About extends Component {
     }
     render() {
         return (
-            <View>
+            <View style={styles.mainView}>
 
-                    <Text style={styles.menuItemText}>
-                        ABOUT PAGE
-                    </Text>
+
 
 
             </View>
@@ -40,3 +38,24 @@ export default class About extends Component {
 
     }
 }
+
+var styles= StyleSheet.create({
+    mainView: {
+        flex: 1,
+
+        backgroundColor: '#000000'
+
+    },
+    menuItemText:{
+
+
+        fontWeight: '100',
+        fontSize: 20,
+        textAlign: 'left',
+        margin: 10,
+        color: '#FFFFFF',
+
+        fontFamily: 'OpenSans-Light'
+    }
+
+})
