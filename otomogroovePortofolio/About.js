@@ -56,8 +56,8 @@ export default class About extends Component {
             <View style={{flex: 3, backgroundColor:'black', padding:5, justifyContent:'center'}} >
                 <MapView style={{flex: 1}}
                     initialRegion={{
-      latitude: 51.528308,
-      longitude: -0.3817765,
+      latitude: 51.509865,
+      longitude: -0.118092,
       latitudeDelta: 0.1,
       longitudeDelta: 0.1,
     }}

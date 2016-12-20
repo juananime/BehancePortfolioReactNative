@@ -5,6 +5,7 @@
 
 import React,{PropTypes, Component} from 'react';
 import {
+    TouchableHighlight,
     Dimensions,
     Image,
     ListView,
@@ -85,10 +86,14 @@ export default class ProjectDetail extends Component {
 
 
     }
+
+    onImageDetailTouched(item){
+        this.props.showDetailImage(item);
+    }
     renderItem(item) {
         return (
+            <TouchableHighlight onPress={ ()=> this.onImageDetailTouched(item)} key={item.id}  style={styles.thumbnail}>
 
-                <View key={item.id}  style={styles.thumbnail}>
 
 
                     <Image
@@ -97,9 +102,9 @@ export default class ProjectDetail extends Component {
 
                     />
 
-                </View>
 
 
+            </TouchableHighlight>
 
         )
     }

@@ -16,10 +16,10 @@ import {
 import Drawer from 'react-native-drawer';
 
 import ProjectsView from './ProjectsView';
-import  ProjectDetail from './ProjectDetail';
+import ProjectDetail from './ProjectDetail';
 import SideMenu from './SideMenu';
 import About from './About';
-
+import ImageDetail from './ImageDetail';
 
 const drawerStyles = {
     drawer: {
@@ -38,6 +38,7 @@ export default class Application extends Component {
         super(props, context);
         this.drawerNavMenuButtonClick = this.drawerNavMenuButtonClick.bind(this);
         this.renderNavigator = this.renderNavigator.bind(this);
+        this.showDetail = this.showDetail.bind(this);
         this.state = {
             drawerType: 'static',
             openDrawerOffset:100,
@@ -58,6 +59,9 @@ export default class Application extends Component {
             negotiatePan: false,
             rightSide: true,
             navigator:null,
+            showDetailFullscreen:false,
+            detailImagedata:null,
+
         };
     }
 
@@ -130,6 +134,7 @@ export default class Application extends Component {
                 tapToClose={this.state.tapToClose}
                 negotiatePan={this.state.negotiatePan}
                 rightSide={this.state.rightSide}
+                showDetail={this.showDetail.bind(this)}
 
 
 
@@ -193,7 +198,7 @@ export default class Application extends Component {
             return <ProjectsView
                 // Function to call when a new scene should be displayed
                 onForward={(data) => {
-                   console.log('rere:: '+data.id);
+
                     navigator.push({
                      name: 'ProjectDetail',
                      data: data.id,
@@ -208,6 +213,15 @@ export default class Application extends Component {
         if (route.name == 'ProjectDetail') {
             return <ProjectDetail
                 data={route.data}
+
+                showDetailImage={
+                    (data) => {
+                        console.log('rere:: '+data);
+                        navigator.props.showDetail(data)
+
+                    }
+
+                }
             />
         }
         if(route.name == 'About'){
@@ -217,50 +231,83 @@ export default class Application extends Component {
         }
     }
 
+    showDetail(data){
+        this.setState({
+            detailImagedata:data,
+            showDetailFullscreen :true,
+
+        })
+    }
 
     render() {
-        this.state.navigator = this.renderNavigator();
 
-        var sideMenu =
-            <SideMenu
-                onSectionChanged={(section) => {
-                this.onSectionChanged(section);
-                }}
-                closeDrawer={() => {
-                this.drawer.close();
-                }}
-            />
-        return (
+        if(this.state.showDetailFullscreen) {
 
-            <Drawer
-                ref={c => this.drawer = c}
-                type={this.state.drawerType}
-                animation={this.state.animation}
-                openDrawerOffset={this.state.openDrawerOffset}
-                closedDrawerOffset={this.state.closedDrawerOffset}
-                panOpenMask={this.state.panOpenMask}
-                panCloseMask={this.state.panCloseMask}
-                relativeDrag={this.state.relativeDrag}
-                panThreshold={this.state.panThreshold}
-                content={sideMenu}
-                styles={drawerStyles}
-                disabled={this.state.disabled}
-                tweenHandler={(ratio) => ({
+            console.log("xxx:: "+this.state.detailImagedata.url)
+                return (
+
+                    <ImageDetail
+                        data={this.state.detailImagedata}
+                        onClosedDetail={ () => {
+
+                                this.setState({
+
+                                showDetailFullscreen :false,
+
+                             })
+
+                            }
+                        }
+                    />
+                )
+
+        }else{
+            this.state.navigator = this.renderNavigator();
+
+            var sideMenu =
+                <SideMenu
+                    onSectionChanged={(section) => {
+                        this.onSectionChanged(section);
+                    }}
+                    closeDrawer={() => {
+                        this.drawer.close();
+                    }}
+                />
+            return (
+
+                <Drawer
+                    ref={c => this.drawer = c}
+                    type={this.state.drawerType}
+                    animation={this.state.animation}
+                    openDrawerOffset={this.state.openDrawerOffset}
+                    closedDrawerOffset={this.state.closedDrawerOffset}
+                    panOpenMask={this.state.panOpenMask}
+                    panCloseMask={this.state.panCloseMask}
+                    relativeDrag={this.state.relativeDrag}
+                    panThreshold={this.state.panThreshold}
+                    content={sideMenu}
+                    styles={drawerStyles}
+                    disabled={this.state.disabled}
+                    tweenHandler={(ratio) => ({
                      main: { }
                 })}
-                tweenDuration={this.state.tweenDuration}
-                tweenEasing={this.state.tweenEasing}
-                acceptDoubleTap={this.state.acceptDoubleTap}
-                acceptTap={this.state.acceptTap}
-                acceptPan={this.state.acceptPan}
-                tapToClose={this.state.tapToClose}
-                negotiatePan={this.state.negotiatePan}
-                changeVal={this.state.changeVal}
-                side={this.state.rightSide ? 'right' : 'left'}
-            >
-                {this.state.navigator}
-            </Drawer>
-        );
+                    tweenDuration={this.state.tweenDuration}
+                    tweenEasing={this.state.tweenEasing}
+                    acceptDoubleTap={this.state.acceptDoubleTap}
+                    acceptTap={this.state.acceptTap}
+                    acceptPan={this.state.acceptPan}
+                    tapToClose={this.state.tapToClose}
+                    negotiatePan={this.state.negotiatePan}
+                    changeVal={this.state.changeVal}
+                    side={this.state.rightSide ? 'right' : 'left'}
+                >
+                    {this.state.navigator}
+                </Drawer>
+            );
+
+        }
+
+
     }
 }
 var styles = StyleSheet.create({
@@ -286,5 +333,6 @@ var styles = StyleSheet.create({
 
 
     },
+
 
 })

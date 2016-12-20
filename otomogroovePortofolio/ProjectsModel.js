@@ -74,7 +74,7 @@ export default class ProjectsModel extends Component {
     static getImagesForProjectID(id){
 
         let images = realm.objects('ProjectImage').filtered('projectID == $0', id);
-        console.log("CDCDC::: "+images.length);
+
         return  images;
     }
 
