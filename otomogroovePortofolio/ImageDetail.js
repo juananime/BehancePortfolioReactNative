@@ -47,6 +47,7 @@ export default class ImageDetail extends Component {
 var styles =  StyleSheet.create({
     detailedView:{
         padding:15,
+        paddingTop:60,
         backgroundColor:'black',
         flex: 1,
 

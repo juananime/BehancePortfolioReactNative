@@ -241,27 +241,7 @@ export default class Application extends Component {
 
     render() {
 
-        if(this.state.showDetailFullscreen) {
 
-            console.log("xxx:: "+this.state.detailImagedata.url)
-                return (
-
-                    <ImageDetail
-                        data={this.state.detailImagedata}
-                        onClosedDetail={ () => {
-
-                                this.setState({
-
-                                showDetailFullscreen :false,
-
-                             })
-
-                            }
-                        }
-                    />
-                )
-
-        }else{
             this.state.navigator = this.renderNavigator();
 
             var sideMenu =
@@ -272,6 +252,20 @@ export default class Application extends Component {
                     closeDrawer={() => {
                         this.drawer.close();
                     }}
+                />
+
+                var imagedetail =   <ImageDetail
+                    data={this.state.detailImagedata}
+                    onClosedDetail={ () => {
+
+                                this.setState({
+
+                                showDetailFullscreen :false,
+
+                             })
+
+                            }
+                        }
                 />
             return (
 
@@ -301,11 +295,14 @@ export default class Application extends Component {
                     changeVal={this.state.changeVal}
                     side={this.state.rightSide ? 'right' : 'left'}
                 >
-                    {this.state.navigator}
+                    {//this.state.showDetailFullscreen? imagedetail :this.state.navigator
+                        this.state.navigator
+                     }
                 </Drawer>
+
             );
 
-        }
+
 
 
     }

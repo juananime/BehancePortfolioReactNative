@@ -14,6 +14,9 @@ import {
     Text,
     View,
 } from 'react-native';
+
+import ImageDetail from './ImageDetail';
+
 var API_KEY = 'OXf3O560Fx9oHdUWjy48t7hhId8NgRZN';
 var API_URL = 'https://api.behance.net/v2/projects/';
 import GridView from 'react-native-grid-view'
@@ -29,6 +32,8 @@ export default class ProjectDetail extends Component {
             loaded:false,
             dataResponse:null,
             images:null,
+            showDetailFullscreen:false,
+            detailImagedata:null,
 
 
         }
@@ -88,7 +93,11 @@ export default class ProjectDetail extends Component {
     }
 
     onImageDetailTouched(item){
-        this.props.showDetailImage(item);
+        this.setState({
+            detailImagedata:item,
+            showDetailFullscreen:true,
+        })
+       // this.props.showDetailImage(item);
     }
     renderItem(item) {
         return (
@@ -121,6 +130,19 @@ export default class ProjectDetail extends Component {
             return this.renderLoadingView();
         }
 
+        var imagedetail =   <ImageDetail
+            data={this.state.detailImagedata}
+            onClosedDetail={ () => {
+                this.setState({
+                            showDetailFullscreen :false,
+                            })
+                        }
+                    }
+            />
+
+        if(this.state.showDetailFullscreen){
+            return imagedetail;
+        }
 
         return (
             <View style={styles.mainView}>
