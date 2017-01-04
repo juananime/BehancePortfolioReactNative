@@ -11,7 +11,7 @@ Features:
   - Fetch calls to Behance APIs
   - Navigation between scenes.
   - Drawer menu platform agnostic.
-  - Real persintent data implementation.
+  - Realm persintent data implementation.
   - Grid List platform agnostic.
 
 
